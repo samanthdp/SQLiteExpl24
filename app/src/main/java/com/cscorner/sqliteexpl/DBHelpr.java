@@ -1,7 +1,9 @@
 package com.cscorner.sqliteexpl;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -29,5 +31,33 @@ public class DBHelpr extends SQLiteOpenHelper {
         cv.put("Name",name);
         cv.put("Location",Location);
         sq.insert("Rocket",null,cv);
+    }
+
+    @SuppressLint("Range")
+    public String getloc (String name){
+        Cursor c = sq.query(
+                "Rocket",
+                null,
+                "Name=?",
+                new String[]{name},
+                null,
+                null,
+                null);
+        c.moveToFirst();
+
+
+
+        return c.getString(c.getColumnIndex("Location"));
+    }
+
+    public int updateval(String name, String newloc) {
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put("Location",newloc);
+
+        return sq.update("Rocket",contentValues,"Name = '"+name+"'",null);
+
+        //  update table Rocket set Location='newloc' where Name =  name
+
     }
 }

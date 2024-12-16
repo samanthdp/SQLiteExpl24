@@ -39,5 +39,25 @@ public class MainActivity extends AppCompatActivity {
           }
       });
 
+      a.button2.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+             String lodfromdb = dbobj.getloc(a.editTextText3.getText().toString());
+
+             a.textView2.setText(lodfromdb);
+
+          }
+      });
+
+      a.button3.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              dbobj.updateval(
+                      a.editTextText4.getText().toString(),
+                      a.editTextText5.getText().toString()
+              );
+          }
+      });
+
     }
 }
